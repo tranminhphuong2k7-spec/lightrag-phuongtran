@@ -1,7 +1,7 @@
 """
 This module contains all document-related routes for the LightRAG API.
 """
-
+from lightrag.parser.xlsx.xlsx_pdf_parser import extract_xlsx_with_embedded_pdfs
 import asyncio
 import re
 import shutil
@@ -2099,7 +2099,7 @@ async def pipeline_enqueue_file(
 
                 case ".xlsx":
                     try:
-                        content = await asyncio.to_thread(_extract_xlsx, file)
+                        content = await asyncio.to_thread(extract_xlsx_with_embedded_pdfs, file)
                     except Exception as e:
                         error_files = [
                             {
